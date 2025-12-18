@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Slake — Menu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Subtle animated background grain + glow -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__glow"></div>
+    <div class="bg__grain"></div>
+  </div>
+
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a class="brand" href="#top" aria-label="Slake home">
+        <img class="brand__logo" src="https://d1w7312wesee68.cloudfront.net/n8pXX4cfre4PBzQMeVFyYp_kgnaT2lVoAUFzYKrV8y4/ext%3Awebp/quality%3A85/plain/s3%3A//toast-sites-resources-prod/restaurantImages/ceebe5de-a4c7-444d-8f32-cd438d38c181/slakeblack.png" alt="Slake logo">
+        <span class="brand__text">
+          <span class="brand__name">SLAKE</span>
+          <span class="brand__tag">Sip &amp; Savor</span>
+        </span>
+      </a>
+
+      <nav class="nav">
+        <a class="nav__link" href="#menu">Menu</a>
+        <a class="nav__link" href="#hours">Hours</a>
+        <a class="nav__link" href="#location">Location</a>
+        <a class="nav__cta" href="https://www.toasttab.com/local/order/slake-610-n-main-street" target="_blank" rel="noreferrer">Order on Toast</a>
+      </nav>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="mobile" id="mobileNav" hidden>
+      <div class="container mobile__inner">
+        <a class="mobile__link" href="#menu">Menu</a>
+        <a class="mobile__link" href="#hours">Hours</a>
+        <a class="mobile__link" href="#location">Location</a>
+        <a class="mobile__cta" href="https://www.toasttab.com/local/order/slake-610-n-main-street" target="_blank" rel="noreferrer">Order on Toast</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero__banner" role="img" aria-label="Slake banner"></div>
+
+      <div class="container hero__content">
+        <div class="hero__card reveal">
+          <p class="eyebrow">Blacksburg, VA</p>
+          <h1 class="h1">
+            Big flavor.<br />
+            <span class="accent">Smashed classics</span> & loaded platters.
+          </h1>
+          <p class="lead">
+            Browse the full menu, filter by category, and tap any item for details.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#menu">View Menu</a>
+            <a class="btn btn--ghost" href="#location">Get Directions</a>
+          </div>
+
+          <div class="hero__meta">
+            <div class="pill">
+              <span class="dot"></span>
+              <span id="openStatus">Open hours vary</span>
+            </div>
+            <div class="pill pill--soft">Pickup only (via Toast)</div>
+          </div>
+        </div>
+
+        <div class="hero__stats reveal">
+          <div class="stat">
+            <div class="stat__k">Fresh</div>
+            <div class="stat__v">House-made sauces</div>
+          </div>
+          <div class="stat">
+            <div class="stat__k">Fast</div>
+            <div class="stat__v">Smashed + loaded</div>
+          </div>
+          <div class="stat">
+            <div class="stat__k">Simple</div>
+            <div class="stat__v">Filter + search</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu" id="menu">
+      <div class="container">
+        <div class="sectionHead reveal">
+          <h2 class="h2">Menu</h2>
+          <p class="muted">Search, filter, and tap items for details.</p>
+        </div>
+
+        <div class="toolbar reveal">
+          <div class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16Zm11 3-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input id="searchInput" type="search" placeholder="Search menu items…" autocomplete="off" />
+            <button class="search__clear" id="searchClear" aria-label="Clear search" hidden>×</button>
+          </div>
+
+          <div class="chips" id="chips" aria-label="Category filters"></div>
+
+          <div class="toolbar__right">
+            <button class="btn btn--ghost btn--sm" id="resetBtn">Reset</button>
+            <div class="cart" id="cart">
+              <div class="cart__icon" aria-hidden="true">🛒</div>
+              <div class="cart__text">
+                <div class="cart__label">Selected</div>
+                <div class="cart__value"><span id="cartCount">0</span> item(s)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid" id="menuGrid" aria-live="polite"></div>
+
+        <div class="empty" id="emptyState" hidden>
+          <h3>No matches</h3>
+          <p>Try another search or reset filters.</p>
+          <button class="btn btn--primary" id="emptyReset">Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="info" id="hours">
+      <div class="container">
+        <div class="twoCol">
+          <div class="card reveal">
+            <h3 class="h3">Hours</h3>
+            <ul class="list" id="hoursList"></ul>
+            <p class="fine muted">Hours shown are from Toast listing.</p>
+          </div>
+
+          <div class="card reveal" id="location">
+            <h3 class="h3">Location</h3>
+            <p class="muted">
+              610 N Main Street, Blacksburg, VA 24060
+            </p>
+            <div class="mapActions">
+              <a class="btn btn--primary" target="_blank" rel="noreferrer"
+                 href="https://www.google.com/maps/search/?api=1&query=610%20N%20Main%20Street%2C%20Blacksburg%2C%20VA%2024060">
+                Directions
+              </a>
+              <a class="btn btn--ghost" target="_blank" rel="noreferrer"
+                 href="https://slakerestaurant.toast.site/">
+                Original Site
+              </a>
+            </div>
+
+            <div class="divider"></div>
+
+            <p class="fine muted">
+              Want the official ordering flow? Use “Order on Toast” in the header.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__left">
+          <div class="footer__brand">SLAKE</div>
+          <div class="fine muted">Unofficial menu showcase (HTML/CSS/JS demo).</div>
+        </div>
+        <a class="toTop" href="#top">Back to top ↑</a>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Item modal -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel" role="document" aria-label="Menu item details">
+      <button class="modal__close" aria-label="Close" data-close>×</button>
+      <div class="modal__content">
+        <div class="modal__badge" id="modalCategory"></div>
+        <h3 class="modal__title" id="modalTitle"></h3>
+        <p class="modal__desc muted" id="modalDesc"></p>
+        <div class="modal__row">
+          <div class="price" id="modalPrice"></div>
+          <div class="stock" id="modalStock"></div>
+        </div>
+
+        <div class="modal__actions">
+          <button class="btn btn--primary" id="addBtn">Add to selected</button>
+          <a class="btn btn--ghost" id="toastBtn" target="_blank" rel="noreferrer">View on Toast</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
